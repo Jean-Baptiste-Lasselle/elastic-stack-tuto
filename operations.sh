@@ -204,23 +204,23 @@ sudo chmod +x ./provision-hote-docker.sh >> $NOMFICHIERLOG
 sudo chmod +x ./provision-elk.sh >> $NOMFICHIERLOG
 
 # provision hôte docker
-./provision-hote-docker.sh && ./provision-elk.sh >> $NOMFICHIERLOG
+./provision-hote-docker.sh >> $NOMFICHIERLOG
 
 # --------------------------------------------------------------------------------------------------------------------------------------------
 # 			PORVISION PAR DES CONTENURS
 # --------------------------------------------------------------------------------------------------------------------------------------------
 
-# 1. conteneur .....
-./provision-hote-docker.sh && ./provision-elk.sh >> $NOMFICHIERLOG
+# 1. provision ELK 
+./provision-elk.sh >> $NOMFICHIERLOG
 
 # 2. healthcheck
-checkHealth $NOM_CONTENEUR_ELK1
+# checkHealth $NOM_CONTENEUR_ELK1
 
 # 3. 
-./provision-srv-gogs.sh >> $NOMFICHIERLOG
+# ./provision-srv-gogs.sh >> $NOMFICHIERLOG
 
 # 4. healthcheck
-checkHealth $NOM_CONTENEUR_ELK2
+# checkHealth $NOM_CONTENEUR_ELK2
 
 # Et là, on SAIT , que l'ensemble a été provisionné correctement)
 # echo " +++provision+ app + elk +  Votre serveur Gogs est disponible à l'URI:" >> $NOMFICHIERLOG
