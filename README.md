@@ -35,7 +35,7 @@ sudo chmod +x ./operations.sh
 ```
 Ou encore, en une seule ligne:
 ```
-export PROVISIONING_HOME && PROVISIONING_HOME=$(pwd)/provision-app-plus-elk.io && cd $PROVISIONING_HOME && git clone "https://github.com/Jean-Baptiste-Lasselle/elastic-stack-tuto" . && sudo chmod +x ./operations.sh && ./operations.sh
+export PROVISIONING_HOME && PROVISIONING_HOME=$(pwd)/provision-app-plus-elk.io && rm -rf $PROVISIONING_HOME && mkdir -p $PROVISIONING_HOME && cd $PROVISIONING_HOME && git clone "https://github.com/Jean-Baptiste-Lasselle/elastic-stack-tuto" . && sudo chmod +x ./operations.sh && ./operations.sh
 ```
 
 # ANNEXE : System Requirements for ELK
