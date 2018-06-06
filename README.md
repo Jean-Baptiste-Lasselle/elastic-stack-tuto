@@ -17,9 +17,16 @@ On souhaite parcourir les logs avec Elastic Stack et FileBeats.
 
 Les filebeat seront installés :
 
-- Dans des conteneurs docker
+- Dans des conteneurs Docker
 - Sur l'hôte de conteneurisation
 
+
+# Utilisation
+
+
+```
+export PROVISIONING_HOME && PROVISIONING_HOME=$(pwd)/provision-app-plus-elk.io && cd $PROVISIONING_HOME && git clone "" . && sudo chmod +x ./operations.sh && ./operations.sh
+```
 
 # ANNEXE : System Requirements for ELK
 

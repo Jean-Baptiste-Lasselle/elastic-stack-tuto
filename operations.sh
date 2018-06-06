@@ -13,7 +13,9 @@
 ##############################################################################################################################################
 # --------------------------------------------------------------------------------------------------------------------------------------------
 export MAISON_OPERATIONS
-MAISON_OPERATIONS=$(pwd)/provision-app-plus-elk.io
+# MAISON_OPERATIONS=$(pwd)/provision-app-plus-elk.io
+MAISON_OPERATIONS=$(pwd)
+
 # -
 export NOMFICHIERLOG
 NOMFICHIERLOG="$(pwd)/provision-app-plus-elk.log"
