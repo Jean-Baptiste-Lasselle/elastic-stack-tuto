@@ -162,9 +162,9 @@ checkHealth () {
 # --------------------------------------------------------------------------------------------------------------------------------------------
 
 
-rm  -rf $MAISON_OPERATIONS
-mkdir -p $MAISON_OPERATIONS
-cd $MAISON_OPERATIONS
+# rm  -rf $MAISON_OPERATIONS
+# mkdir -p $MAISON_OPERATIONS
+# cd $MAISON_OPERATIONS
 rm -f $NOMFICHIERLOG
 touch $NOMFICHIERLOG
 
