@@ -208,9 +208,11 @@ sudo chmod +x ./provision-elk.sh >> $NOMFICHIERLOG
 ./provision-hote-docker.sh >> $NOMFICHIERLOG
 
 # --------------------------------------------------------------------------------------------------------------------------------------------
-# 			PORVISION PAR DES CONTENURS
+# 			PROVISION PAR DES CONTENURS
 # --------------------------------------------------------------------------------------------------------------------------------------------
 
+# 0. Pré-requis Système / ELK
+ajusterLeSystemSpecialementPourELK
 # 1. provision ELK 
 ./provision-elk.sh >> $NOMFICHIERLOG
 
