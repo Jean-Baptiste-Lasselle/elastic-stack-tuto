@@ -12,13 +12,52 @@ Les sources d'informations scannées par ce repo:
 
 # Scenario
 
-Une application Web Jee tournant dansun tomcat dans un conteneur Docker.
+## Scenario 1
+
+Une "fausse" application tournant dans un tomcat dans un conteneur Docker:
+Ce conteneur ne fait "que s'exécuter" et on peut utiliser la commande:
+
+```
+docker exec -it $NOM_CONTNEUR /bin/bash -c "echo \"nouvelle ligne de log de ma fausse application\" \>\> /opt/petit-duc/petit-duc.log"
+```
+
 On souhaite parcourir les logs avec Elastic Stack et FileBeats.
 
 Les filebeat seront installés :
 
-- Dans des conteneurs Docker
-- Sur l'hôte de conteneurisation
+- Dans des conteneurs Docker : le filebeat est installé directement dans le conteneur Docker qui contient l'application dont on souhaite surveiller les logs
+- Sur l'hôte de conteneurisation : le filetbeat est installé sur l'hôte de conteneurisation, et le conteneur de l'application expose un volume docker dans lequel sont stocké les logs applicatifs.
+
+- Sur une VM différente "BeatVM": le filebeat est installé sur une VM "BeatVM", disctincte de l'hôte de conteneurisation. De plus, dans "BeatVM", un serveur NFS est installé, et un répertoire est ainsi partagé avec le conteneur applicatif.
+- Sur une VM différente "BeatVM": le filebeat est installé sur une VM "BeatVM", disctincte de l'hôte de conteneurisation. De plus, dans "BeatVM", un serveur NFS est installé, et un répertoire est ainsi partagé avec non plus 1, mais 2 conteneurs contenant chacun une application différente.
+
+## Scenario 2
+
+Une application Web Jee tournant dans un tomcat dans un conteneur Docker.
+On souhaite parcourir les logs avec Elastic Stack et FileBeats.
+
+Les filebeat seront installés :
+
+- Dans des conteneurs Docker : le filebeat est installé directement dans le conteneur Docker qui contient l'application dont on souhaite surveiller les logs
+- Sur l'hôte de conteneurisation : le filetbeat est installé sur l'hôte de conteneurisation, et le conteneur de l'application expose un volume docker dans lequel sont stocké les logs applicatifs.
+
+- Sur une VM différente "BeatVM": le filebeat est installé sur une VM "BeatVM", disctincte de l'hôte de conteneurisation. De plus, dans "BeatVM", un serveur NFS est installé, et un répertoire est ainsi partagé avec le conteneur applicatif.
+- Sur une VM différente "BeatVM": le filebeat est installé sur une VM "BeatVM", disctincte de l'hôte de conteneurisation. De plus, dans "BeatVM", un serveur NFS est installé, et un répertoire est ainsi partagé avec non plus 1, mais 2 conteneurs contenant chacun une application différente.
+
+## Scenario 3
+
+2 applications : 1 Web Jee tournant dans un tomcat dans un conteneur Docker, l'autre est une application java exécutant un jar exécutable.
+CEs  2 applications ont contenues dans 2 conteneurs: k'un 
+On souhaite parcourir les logs avec Elastic Stack et FileBeats.
+
+Les filebeat seront installés :
+
+- Dans des conteneurs Docker : le filebeat est installé directement dans le conteneur Docker qui contient l'application dont on souhaite surveiller les logs
+- Sur l'hôte de conteneurisation : le filetbeat est installé sur l'hôte de conteneurisation, et le conteneur de l'application expose un volume docker dans lequel sont stocké les logs applicatifs.
+
+- Sur une VM différente "BeatVM": le filebeat est installé sur une VM "BeatVM", disctincte de l'hôte de conteneurisation. De plus, dans "BeatVM", un serveur NFS est installé, et un répertoire est ainsi partagé avec le conteneur applicatif.
+- Sur une VM différente "BeatVM": le filebeat est installé sur une VM "BeatVM", disctincte de l'hôte de conteneurisation. De plus, dans "BeatVM", un serveur NFS est installé, et un répertoire est ainsi partagé avec non plus 1, mais 2 conteneurs contenant chacun une application différente.
+
 
 
 # Utilisation
