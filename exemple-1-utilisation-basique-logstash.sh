@@ -20,6 +20,12 @@
 
 # Attention, ceci est une exécution interactive: la commande attendra une arrivée de données sur l'entrée standard
 # export NOM_CONTENEUR_ELK1=conteneur-elk-jibl
-sudo docker exec $NOM_CONTENEUR_ELK1 /bin/bash -c "/opt/logstash/bin/logstash --path.data /tmp/logstash/data -e 'input { stdin { } } output { elasticsearch { hosts => [\"localhost\"] } }'"
+clear
+echo "Pressez la touche clavier retour chariot, pour démarrer le plugin logstash permettant de lire des logs depuis l'entrée standard."
+echo "Lorsque le plugin aura terminé son démarrage, il affichera la phrase \"The stdin plugin is now waiting for input:\" "
+echo "Dès lors, à chaque fois que vous saisirez une chaîne de caractère, puis "
+echo " la touche clavier retour chariot, la chaîne de caractères que vous aurez saisie sera envoyé à Logstash. "
+echo " VOus pourrez le vérifier en requêtant ElasticSearch avec la requête [] "
+sudo docker exec -it $NOM_CONTENEUR_ELK1 /bin/bash -c "/opt/logstash/bin/logstash --path.data /tmp/logstash/data -e 'input { stdin { } } output { elasticsearch { hosts => [\"localhost\"] } }'"
 
 # /opt/logstash/bin/logstash --path.data /tmp/logstash/data -e 'input { stdin { } } output { elasticsearch { hosts => ["localhost"] } }'
