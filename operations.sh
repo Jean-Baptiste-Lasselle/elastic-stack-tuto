@@ -2,10 +2,6 @@
 # Hôte Docker sur centos 7
 
 
-# DOCKER BARE-METAL-INSTALL - CentOS 7
-# sudo systemctl stop docker
-# sudo systemctl start docker
-
 
 # --------------------------------------------------------------------------------------------------------------------------------------------
 ##############################################################################################################################################
@@ -69,6 +65,23 @@ demander_addrIP_PourJeNeSaisQuelleRaison () {
 # --------------------------------------------------------------------------------------------------------------------------------------------
 # Cette fonction permet de re-synchroniser l'hôte docker sur un serveur NTP, sinon# certaines installations dépendantes
 # de téléchargements avec vérification de certtificat SSL
+#
+# ---
+# Dixit : https://services.renater.fr/ntp/article/presentation_ntp_article
+# Dixit : https://services.renater.fr/ntp/serveurs_francais
+# Dixit : http://www.pool.ntp.org/zone/fr
+# ---
+# France — fr.pool.ntp.org
+# 
+# To use this specific pool zone, add the following to your ntp.conf file:
+# 
+# 	   server 0.fr.pool.ntp.org
+# 	   server 1.fr.pool.ntp.org
+# 	   server 2.fr.pool.ntp.org
+# 	   server 3.fr.pool.ntp.org
+#  
+# 
+# 
 synchroniserSurServeurNTP () {
 	# ---------------------------------------------------------------------------------------------------------------------------------------------
 	# ------	SYNCHRONSITATION SUR UN SERVEUR NTP PUBLIC (Y-en-a-til des gratuits dont je puisse vérifier le certificat SSL TLSv1.2 ?)
@@ -92,7 +105,7 @@ synchroniserSurServeurNTP () {
 	date >> $NOMFICHIERLOG
 	sudo which ntpdate
 	sudo yum install -y ntp
-	sudo ntpdate 0.us.pool.ntp.org
+	sudo ntpdate 0.fr.pool.ntp.org
 	echo "date après la re-synchronisation [Serveur NTP=$SERVEUR_NTP :]" >> $NOMFICHIERLOG
 	date >> $NOMFICHIERLOG
 	# pour re-synchroniser l'horloge matérielle, et ainsi conserver l'heure après un reboot, et ce y compris après et pendant
@@ -169,6 +182,8 @@ checkHealth () {
 rm -f $NOMFICHIERLOG
 touch $NOMFICHIERLOG
 
+# je dois faire simplement une synchrinsation NTP, pour mettre à jour date et heure système.
+# Et non à la fois installation du client NTP, et mise à jour de l'heure et la date système.
 synchroniserSurServeurNTP
 
 
