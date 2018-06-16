@@ -1,16 +1,12 @@
 # Prinicpe
 
-Chaque release de ce repository correspondra à une implémentation (et ses tests) d'une source d'information.
+Chaque release de ce repository correspondra à un scénario.
 
-Les sources d'informations scannées par ce repo:
+* REALEASE 0.0.1 : cf. [Scenario 2](#Scenario2)
+<!-- * REALEASE 0.0.2 : cf. [Scenario 3](#Scenario3) -->
+<!-- * REALEASE 0.0.3 : cf. [Scenario 4](#Scenario4) -->
 
-
-* REALEASE 0.0.1 : https://elk-docker.readthedocs.io
-<!-- * REALEASE 0.0.2 : https://www.elastic.co/guide/en/beats/filebeat/current/filebeat-getting-started.html  +   https://www.elastic.co/downloads/beats/filebeat -->
-<!-- * REALEASE 0.0.3 : http://blog.dbsqware.com/elasticstack-principe-installation-et-premiers-pas/ -->
-
-
-# Scenario
+# Scenarii
 
 ## Scenario 1
 
@@ -47,7 +43,7 @@ Les filebeat seront installés :
 ## Scenario 3
 
 2 applications : 1 Web Jee tournant dans un tomcat dans un conteneur Docker, l'autre est une application java exécutant un jar exécutable.
-CEs  2 applications ont contenues dans 2 conteneurs: k'un 
+Ces  2 applications ont contenues dans 2 conteneurs: k'un 
 On souhaite parcourir les logs avec Elastic Stack et FileBeats.
 
 Les filebeat seront installés :
@@ -58,12 +54,43 @@ Les filebeat seront installés :
 - Sur une VM différente "BeatVM": le filebeat est installé sur une VM "BeatVM", disctincte de l'hôte de conteneurisation. De plus, dans "BeatVM", un serveur NFS est installé, et un répertoire est ainsi partagé avec le conteneur applicatif.
 - Sur une VM différente "BeatVM": le filebeat est installé sur une VM "BeatVM", disctincte de l'hôte de conteneurisation. De plus, dans "BeatVM", un serveur NFS est installé, et un répertoire est ainsi partagé avec non plus 1, mais 2 conteneurs contenant chacun une application différente.
 
+## Scenario 4
+
+3 applications dans openshift : les trois sont déployées dans openshift sous forme d'images docker construire docker build, et poussées dnas le repo de référence openshift. 
+L'une des applications est un simple jar exécutable, l'autre une appli web dans un conteneur contenant un tomcat et une appli web, et la dernière est composée de 2  microservices un en RxJAva, exposant une API REST, l'autre un client Angular5, tournant dans un conteneur nodeJS, faisant appel à la REST API pour faire de la persistance. 
+
+On souhaite parcourir les logs des 3 applications avec Elastic Stack et FileBeats.
+
+Les filebeat seront installés :
+
+- Dans des conteneurs Docker : le filebeat est installé directement dans le conteneur Docker qui contient l'application dont on souhaite surveiller les logs
+- Sur l'hôte de conteneurisation : le filetbeat est installé sur l'hôte de conteneurisation, et le conteneur de l'application expose un volume docker dans lequel sont stocké les logs applicatifs.
+
+- Sur une VM différente "BeatVM": le filebeat est installé sur une VM "BeatVM", disctincte de l'hôte de conteneurisation. De plus, dans "BeatVM", un serveur NFS est installé, et un répertoire est ainsi partagé avec le conteneur applicatif.
+- Sur une VM différente "BeatVM": le filebeat est installé sur une VM "BeatVM", disctincte de l'hôte de conteneurisation. De plus, dans "BeatVM", un serveur NFS est installé, et un répertoire est ainsi partagé avec non plus 1, mais 2 conteneurs contenant chacun une application différente.
+
+## Scenario 5: Breakout Release
+
+3 applications dans openshift + Kubernetes en prod 
+mêmes appplications que dans le scenario 4.
+On souhaite surveiller/gérerles logs des 3 applications avec ELK.
+
 
 
 # Utilisation
 
-Pour utiliser cette recette, vous pourrez d'abord provisionner un systyème ELK, puis provisionner une application JAva Jee dans un serveur tomcat, faisant usage d'une base de données mariadb.
-Cette application pourra donc donner lieu à une surpervision des logs par le système ELK.
+En utilisant cette recette, vous pourrez:
+
+* Provisionner un systyème ELK,
+* Provisionner une cible de déploiement pour les applications qui seront déployées
+* Pré-configurer le système ELK pour prendre en charge le traitement des logs des applications qui vont être déployées
+* Déployer vos applications
+* Post-configurer le système ELK pour prendre en charge le traitement des logs des nouvelles applications déployées
+* Vérifier le traitement des logs de vos applications déployées avec ELK, et Kibana notamment.
+
+Selon les versions de cette recette, vous pourrez aussi provisionner:
+* Un système Openshift / Minishift "sur une grosse VM à 48 Go RAM, 4 vCPUs")
+* Un système Kubernetes (high availability, avec plus de 6 serveurs)
 
 ## Provision du système ELK 
 
@@ -101,7 +128,12 @@ Cette exécution est interactive, suivez-en les instructions, puis, lorsque vous
 
 Ce qui déploiera l'application web jee exemple, amenée avec cette recette de provision. 
 
+## TODO: évolution provision application qui loggue
 
+Décomposer la présente recette avec les 3 recettes suivantes:
+* https://github.com/Jean-Baptiste-Lasselle/provision-hote-docker-sur-centos
+* https://github.com/Jean-Baptiste-Lasselle/provision-cible-deploiement-dockhost-tomcat-mariadb
+* https://github.com/Jean-Baptiste-Lasselle/provision-elk-sur-dockhost
 
 
 # ANNEXE : System Requirements for ELK
@@ -255,3 +287,12 @@ L'utilisateur jibl peut utiliser les commandes suivantes sur pc-65 :
 [jibl@pc-65 ~]$
 
 ```
+
+# Sources d'information diverses
+
+
+
+
+* https://elk-docker.readthedocs.io
+<!-- * REALEASE 0.0.2 : https://www.elastic.co/guide/en/beats/filebeat/current/filebeat-getting-started.html  +   https://www.elastic.co/downloads/beats/filebeat -->
+<!-- * REALEASE 0.0.3 : http://blog.dbsqware.com/elasticstack-principe-installation-et-premiers-pas/ -->
