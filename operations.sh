@@ -217,10 +217,13 @@ ajusterLeSystemSpecialementPourELK
 ./provision-elk.sh >> $NOMFICHIERLOG
 
 # 2. healthcheck
-# checkHealth $NOM_CONTENEUR_ELK1
-
-# 3. 
-# ./provision-srv-gogs.sh >> $NOMFICHIERLOG
+checkHealth $NOM_CONTENEUR_ELK1
+echo "########### "
+echo "########### "
+echo "########### Installation ELK terminée."
+echo "########### "
+# 3. provision d'une première application qui loggue
+# ./provision-application-1-qui-loggue.sh >> $NOMFICHIERLOG
 
 # 4. healthcheck
 # checkHealth $NOM_CONTENEUR_ELK2

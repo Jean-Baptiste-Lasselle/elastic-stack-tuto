@@ -62,7 +62,12 @@ Les filebeat seront installés :
 
 # Utilisation
 
-Pour utiliser cette recette, exécutez:
+Pour utiliser cette recette, vous pourrez d'abord provisionner un systyème ELK, puis provisionner une application JAva Jee dans un serveur tomcat, faisant usage d'une base de données mariadb.
+Cette application pourra donc donner lieu à une surpervision des logs par le système ELK.
+
+## Provision du système ELK 
+
+Exécutez:
 
 ```
 export PROVISIONING_HOME 
@@ -78,6 +83,26 @@ Ou encore, en une seule ligne:
 ```
 export PROVISIONING_HOME && PROVISIONING_HOME=$(pwd)/provision-app-plus-elk && rm -rf $PROVISIONING_HOME && mkdir -p $PROVISIONING_HOME && cd $PROVISIONING_HOME && git clone "https://github.com/Jean-Baptiste-Lasselle/elastic-stack-tuto" . && sudo chmod +x ./operations.sh && ./operations.sh
 ```
+
+## Provision de l'application exemple Web Jee / Tomcat / MariaDB
+
+Ce repo contient uen application web Java jee, 
+Il s'agit d'un fichier *war, que vous trouverez dans ce repo à l'emplacement:
+
+`./application-1/srv-jee/appli-a-deployer-pour-test.war` 
+
+Exécutez:
+
+`export PROVISIONING_HOME && PROVISIONING_HOME=$(pwd)/provision-app-plus-elk && cd $PROVISIONING_HOME && export $NOMFICHIERLOG=provision-app1-qui-loggue.log && sudo chmod +x $PROVISIONING_HOME/provision-application-1-qui-loggue.sh && $PROVISIONING_HOME/provision-application-1-qui-loggue.sh && sudo chmod +x $PROVISIONING_HOME/application-1/srv-jee/tomcat/deployer-appli-web.sh && $PROVISIONING_HOME/application-1/srv-jee/tomcat/deployer-appli-web.sh $PROVISIONING_HOME/application-1/srv-jee/tomcat/appli-a-deployer-pour-test.war  >> $NOMFICHIERLOG`
+
+Cette exécution est interactive, suivez-en les instructions, puis, lorsque vous aurez terminé, vous aurez installé [HeidiSQL](), et vous pourrez exécuter:
+`deployer-appli-web.sh`
+
+
+Ce qui déploiera l'application web jee exemple, amenée avec cette recette de provision. 
+
+
+
 
 # ANNEXE : System Requirements for ELK
 

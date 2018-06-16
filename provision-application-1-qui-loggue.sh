@@ -63,13 +63,16 @@ export NOM_CONTENEUR_TOMCAT
 export NOM_CONTENEUR_SGBDR
 
 export ADRESSE_IP_SRV_JEE
-NUMERO_PORT_SRV_JEE=$SAISIE_NUMERO_PORT_SRV_JEE
+export ADRESSE_IP_SRV_JEE_PAR_DEFAUT
 export NUMERO_PORT_SRV_JEE
+export NUMERO_PORT_SRV_JEE_PAR_DEFAUT
 
-ADRESSE_IP_SGBDR=$ADRESSE_IP_SRV_JEE
+# ADRESSE_IP_SGBDR=$ADRESSE_IP_SRV_JEE
 export ADRESSE_IP_SGBDR
-NUMERO_PORT_SGBDR=$SAISIE_NUMERO_PORT_SGBDR
+export ADRESSE_IP_SGBDR_PAR_DEFAUT
+
 export NUMERO_PORT_SGBDR
+export NUMERO_PORT_SGBDR_PAR_DEFAUT
 
 export DB_MGMT_USER_NAME
 export DB_MGMT_USER_PWD
@@ -89,11 +92,11 @@ MAISON=`pwd`
 NOM_CONTENEUR_TOMCAT=ciblededeploiement-composant-srv-jee
 NOM_CONTENEUR_SGBDR=ciblededeploiement-composant-sgbdr
 
-ADRESSE_IP_SRV_JEE=192.168.1.63
-NUMERO_PORT_SRV_JEE=8888
+ADRESSE_IP_SRV_JEE_PAR_DEFAUT=0.0.0.0
+NUMERO_PORT_SRV_JEE_PAR_DEFAUT=8088
 
-ADRESSE_IP_SGBDR=192.168.1.63
-NUMERO_PORT_SGBDR=3308
+ADRESSE_IP_SGBDR_PAR_DEFAUT=0.0.0.0
+NUMERO_PORT_SGBDR_PAR_DEFAUT=3308
 
 DB_MGMT_USER_NAME=jean
 DB_MGMT_USER_PWD=jean
@@ -187,8 +190,14 @@ demanderAdresseIPserveurJee () {
 	echo " "
 	ip addr|grep "inet"|grep -v "inet6"|grep "enp\|wlan"
 	echo " "
-	read ADRESSE_IP_DE_CETTE_MACHINE
-	ADRESSE_IP_SRV_JEE=$ADRESSE_IP_DE_CETTE_MACHINE
+	read ADRESSE_IP_SUR_CETTE_MACHINE
+	ADRESSE_IP_SRV_JEE=$ADRESSE_IP_SUR_CETTE_MACHINE
+	if [ "x$ADRESSE_IP_SUR_CETTE_MACHINE" = "x" ]; then
+       ADRESSE_IP_SRV_JEE=ADRESSE_IP_SRV_JEE_PAR_DEFAUT
+	else
+	   ADRESSE_IP_SRV_JEE=$ADRESSE_IP_SUR_CETTE_MACHINE
+	fi
+	echo " Binding no port IP choisit pour le serveur jee: $ADRESSE_IP_SRV_JEE";
 }
 
 
@@ -199,11 +208,23 @@ demander_choix_no_ports () {
 	echo "Quel nuéméro de port souhaitez-vous que le serveur jee utilise?"
 	read SAISIE_NUMERO_PORT_SRV_JEE
 	
+	if [ "x$SAISIE_NUMERO_PORT_SGBDR" = "x" ]; then
+       NUMERO_PORT_SRV_JEE=NUMERO_PORT_SRV_JEE_PAR_DEFAUT
+	else
+	   NUMERO_PORT_SRV_JEE=$SAISIE_NUMERO_PORT_SRV_JEE
+	fi
+	echo " Binding no port IP choisit pour le serveur jee: $NUMERO_PORT_SRV_JEE";
+	
+	
 	echo "Quel nuéméro de port souhaitez-vous que le SGBDR utilise?"
 	read SAISIE_NUMERO_PORT_SGBDR
-	
-	
-	
+    
+	if [ "x$SAISIE_NUMERO_PORT_SGBDR" = "x" ]; then
+       NUMERO_PORT_SGBDR=NUMERO_PORT_SGBDR_PAR_DEFAUT
+	else
+	   NUMERO_PORT_SGBDR=$SAISIE_NUMERO_PORT_SGBDR
+	fi
+	echo " Binding no port IP choisit pour le sgbdr: $NUMERO_PORT_SGBDR";
 }
 
 
