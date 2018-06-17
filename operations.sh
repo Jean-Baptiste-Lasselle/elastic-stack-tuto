@@ -173,7 +173,7 @@ echo "########### "
 # provision hôte docker: devra être faite par la recette dédiée et séparée:  https://github.com/Jean-Baptiste-Lasselle/provision-hote-docker-sur-centos
 # ./provision-hote-docker.sh >> $NOMFICHIERLOG
 export URI_REPO_RECETTE_PROV_DOCKHOST=https://github.com/Jean-Baptiste-Lasselle/provision-hote-docker-sur-centos
-export DOCKHOST_PROVISONING_HOME=$HOME/provision-hote-docker
+export DOCKHOST_PROVISONING_HOME=$MAISON_MERE_OPERATIONS/provision-hote-docker
 rm -rf $DOCKHOST_PROVISONING_HOME
 mkdir -p $DOCKHOST_PROVISONING_HOME
 cd $DOCKHOST_PROVISONING_HOME
@@ -194,7 +194,7 @@ cd $MAISON_MERE_OPERATIONS
 # ./provision-elk.sh >> $NOMFICHIERLOG
 export URI_REPO_RECETTE_PROV_ELK=https://github.com/Jean-Baptiste-Lasselle/provision-elk-sur-dockhost
 export ELK_PROVISIONING_HOME
-ELK_PROVISIONING_HOME=$(pwd)/provision-elk-sur-dockhost
+ELK_PROVISIONING_HOME=$MAISON_MERE_OPERATIONS/provision-elk-sur-dockhost
 rm -rf $ELK_PROVISIONING_HOME
 mkdir -p $ELK_PROVISIONING_HOME
 cd $ELK_PROVISIONING_HOME
@@ -217,7 +217,7 @@ cd $MAISON_MERE_OPERATIONS
 #      https://github.com/Jean-Baptiste-Lasselle/provision-cible-deploiement-dockhost-tomcat-mariadb
 export URI_REPO_RECETTE_PROV_CIBLE_DEPLOIEMENT=https://github.com/Jean-Baptiste-Lasselle/provision-cible-deploiement-dockhost-tomcat-mariadb
 export PROVISIONING_HOME_CIBLE
-PROVISIONING_HOME_CIBLE=$(pwd)/provision-cible-deploiement-apps-qui-emettent-logs
+PROVISIONING_HOME_CIBLE=$MAISON_MERE_OPERATIONS/provision-cible-deploiement-apps-qui-emettent-logs
 rm -rf $PROVISIONING_HOME_CIBLE
 mkdir -p $PROVISIONING_HOME_CIBLE
 cd $PROVISIONING_HOME_CIBLE
