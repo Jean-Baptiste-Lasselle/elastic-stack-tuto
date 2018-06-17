@@ -203,62 +203,97 @@ echo " "
 echo " " >> $NOMFICHIERLOG
 echo "##########################################################" >> $NOMFICHIERLOG
 echo "##########################################################" >> $NOMFICHIERLOG
-echo "# Récapitulatif:" >> $NOMFICHIERLOG
-# echo " 		[ADRESSE_IP_HOTE_DOCKER_ELK=$ADRESSE_IP_HOTE_DOCKER_ELK]" >> $NOMFICHIERLOG
+echo "# Setup Tutoriel ELK en cours..." >> $NOMFICHIERLOG
+echo " 		[ADRESSE_IP_HOTE_DOCKER_ELK=$ADRESSE_IP_HOTE_DOCKER_ELK]" >> $NOMFICHIERLOG
+echo "##########################################################" >> $NOMFICHIERLOG
+echo " " >> $NOMFICHIERLOG
 clear
 
 echo "########### "
 echo "########### "
-echo "########### Installation ELK en cours..."
+echo "########### Setup Tutoriel ELK en cours..."
 echo "########### "
 
 # PARTIE SILENCIEUSE
 
 # on rend les scripts à exécuter, exécutables.
-sudo chmod +x ./provision-hote-docker.sh >> $NOMFICHIERLOG
-sudo chmod +x ./provision-elk.sh >> $NOMFICHIERLOG
+# sudo chmod +x ./provision-hote-docker.sh >> $NOMFICHIERLOG
+# sudo chmod +x ./provision-elk.sh >> $NOMFICHIERLOG
+
+# --------------------------------------------------------------------------------------------------------------------------------------------
+# 			PROVISION HÔTE DOCKER
+# --------------------------------------------------------------------------------------------------------------------------------------------
 
 # ---------------------------------------
 # ------ >>>  REFACTORISATION: https://github.com/Jean-Baptiste-Lasselle/provision-hote-docker-sur-centos
 # ---------------------------------------
 # provision hôte docker: devra être faite par la recette dédiée et séparée:  https://github.com/Jean-Baptiste-Lasselle/provision-hote-docker-sur-centos
-./provision-hote-docker.sh >> $NOMFICHIERLOG
+# ./provision-hote-docker.sh >> $NOMFICHIERLOG
+export URI_REPO_RECETTE_PROV_DOCKHOST=https://github.com/Jean-Baptiste-Lasselle/provision-hote-docker-sur-centos
+export DOCKHOST_PROVISONING_HOME=$HOME/provision-hote-docker
+rm -rf $DOCKHOST_PROVISONING_HOME
+mkdir -p $DOCKHOST_PROVISONING_HOME
+cd $DOCKHOST_PROVISONING_HOME
+git clone "$URI_REPO_RECETTE_PROV_DOCKHOST" .
+sudo chmod +x operations.sh
+./operations.sh
+cd $MAISON_OPERATIONS
+
 
 # --------------------------------------------------------------------------------------------------------------------------------------------
-# 			PROVISION PAR DES CONTENURS
+# 			PROVISION ELK
 # --------------------------------------------------------------------------------------------------------------------------------------------
-
-# 0. Pré-requis Système / ELK
-ajusterLeSystemSpecialementPourELK
 
 # ---------------------------------------
 # ------ >>>  REFACTORISATION: https://github.com/Jean-Baptiste-Lasselle/provision-elk-sur-dockhost
 # ---------------------------------------
 # 1. provision ELK 
 # ./provision-elk.sh >> $NOMFICHIERLOG
-export ELK_PROVISIONING_HOME 
+export URI_REPO_RECETTE_PROV_ELK=https://github.com/Jean-Baptiste-Lasselle/provision-elk-sur-dockhost
+export ELK_PROVISIONING_HOME
 ELK_PROVISIONING_HOME=$(pwd)/provision-elk-sur-dockhost
 rm -rf $ELK_PROVISIONING_HOME
 mkdir -p $ELK_PROVISIONING_HOME
 cd $ELK_PROVISIONING_HOME
-git clone "https://github.com/Jean-Baptiste-Lasselle/elastic-stack-tuto" . 
+git clone "$URI_REPO_RECETTE_PROV_ELK" . 
 sudo chmod +x ./operations.sh
 ./operations.sh
 cd $MAISON_OPERATIONS
 
 
-# 2. healthcheck
-checkHealth $NOM_CONTENEUR_ELK1
+
+
 echo "########### "
 echo "########### "
-echo "########### Installation ELK terminée."
+echo "########### Tutoriel ELK prêt à l'emploi! "
 echo "########### "
+
+
+
+# --------------------------------------------------------------------------------------------------------------------------------------------
+# 			PROVISION ELK
+# --------------------------------------------------------------------------------------------------------------------------------------------
 
 # ---------------------------------------
 # ------ >>>  REFACTORISATION: https://github.com/Jean-Baptiste-Lasselle/provision-cible-deploiement-dockhost-tomcat-mariadb
 # ---------------------------------------
-# 3. provision d'une cible de déploiement hôte docker / tomcat / mariadb : devra être faite par la recette dédiée et séparée:  https://github.com/Jean-Baptiste-Lasselle/provision-cible-deploiement-dockhost-tomcat-mariadb
-# ./provision-application-1-qui-loggue.sh >> $NOMFICHIERLOG
+# 3. provision d'une cible de déploiement hôte docker / tomcat / mariadb 
+#    devra être faite par la recette dédiée et séparée:  
+#      https://github.com/Jean-Baptiste-Lasselle/provision-cible-deploiement-dockhost-tomcat-mariadb
+export URI_REPO_RECETTE_PROV_CIBLE_DEPLOIEMENT=https://github.com/Jean-Baptiste-Lasselle/provision-cible-deploiement-dockhost-tomcat-mariadb
+export PROVISIONING_HOME_CIBLE
+PROVISIONING_HOME_CIBLE=$(pwd)/provision-elk-sur-dockhost
+rm -rf $PROVISIONING_HOME_CIBLE
+mkdir -p $PROVISIONING_HOME_CIBLE
+cd $PROVISIONING_HOME_CIBLE
+git clone "$URI_REPO_RECETTE_PROV_CIBLE_DEPLOIEMENT" . 
+sudo chmod +x ./operations.sh
+./operations.sh
+cd $MAISON_OPERATIONS
+
+
+###  Mais bon, pour moi, le cycle de création d'applications et déploiements, commence ici avec le FULLSTACK-MAVEN-PLUGIN
+
 
 # ---------------------------------------
 # ------ >>>  REFACTORISATION: https://github.com/Jean-Baptiste-Lasselle/provision-application-1-qui-loggue
