@@ -9,12 +9,12 @@
 ##############################################################################################################################################
 # --------------------------------------------------------------------------------------------------------------------------------------------
 export MAISON_OPERATIONS
-# MAISON_OPERATIONS=$(pwd)/provision-app-plus-elk.io
+# MAISON_OPERATIONS=$(pwd)/provision-apps-plus-elk.io
 MAISON_OPERATIONS=$(pwd)
 
 # -
 export NOMFICHIERLOG
-NOMFICHIERLOG="$(pwd)/provision-app-plus-elk.log"
+NOMFICHIERLOG="$(pwd)/provision-tuto-elk-filebeats.log"
 
 
 
@@ -219,7 +219,10 @@ echo "########### "
 sudo chmod +x ./provision-hote-docker.sh >> $NOMFICHIERLOG
 sudo chmod +x ./provision-elk.sh >> $NOMFICHIERLOG
 
-# provision hôte docker
+# ---------------------------------------
+# ------ >>>  REFACTORISATION: https://github.com/Jean-Baptiste-Lasselle/provision-hote-docker-sur-centos
+# ---------------------------------------
+# provision hôte docker: devra être faite par la recette dédiée et séparée:  https://github.com/Jean-Baptiste-Lasselle/provision-hote-docker-sur-centos
 ./provision-hote-docker.sh >> $NOMFICHIERLOG
 
 # --------------------------------------------------------------------------------------------------------------------------------------------
@@ -228,8 +231,22 @@ sudo chmod +x ./provision-elk.sh >> $NOMFICHIERLOG
 
 # 0. Pré-requis Système / ELK
 ajusterLeSystemSpecialementPourELK
+
+# ---------------------------------------
+# ------ >>>  REFACTORISATION: https://github.com/Jean-Baptiste-Lasselle/provision-elk-sur-dockhost
+# ---------------------------------------
 # 1. provision ELK 
-./provision-elk.sh >> $NOMFICHIERLOG
+# ./provision-elk.sh >> $NOMFICHIERLOG
+export ELK_PROVISIONING_HOME 
+ELK_PROVISIONING_HOME=$(pwd)/provision-elk-sur-dockhost
+rm -rf $ELK_PROVISIONING_HOME
+mkdir -p $ELK_PROVISIONING_HOME
+cd $ELK_PROVISIONING_HOME
+git clone "https://github.com/Jean-Baptiste-Lasselle/elastic-stack-tuto" . 
+sudo chmod +x ./operations.sh
+./operations.sh
+cd $MAISON_OPERATIONS
+
 
 # 2. healthcheck
 checkHealth $NOM_CONTENEUR_ELK1
@@ -237,13 +254,18 @@ echo "########### "
 echo "########### "
 echo "########### Installation ELK terminée."
 echo "########### "
-# 3. provision d'une première application qui loggue
+
+# ---------------------------------------
+# ------ >>>  REFACTORISATION: https://github.com/Jean-Baptiste-Lasselle/provision-cible-deploiement-dockhost-tomcat-mariadb
+# ---------------------------------------
+# 3. provision d'une cible de déploiement hôte docker / tomcat / mariadb : devra être faite par la recette dédiée et séparée:  https://github.com/Jean-Baptiste-Lasselle/provision-cible-deploiement-dockhost-tomcat-mariadb
 # ./provision-application-1-qui-loggue.sh >> $NOMFICHIERLOG
 
-# 4. healthcheck
-# checkHealth $NOM_CONTENEUR_ELK2
+# ---------------------------------------
+# ------ >>>  REFACTORISATION: https://github.com/Jean-Baptiste-Lasselle/provision-application-1-qui-loggue
+# ---------------------------------------
+# 4. provision d'une première application qui loggue:
+#    devra être faite par la recette dédiée et séparée
+# ./provision-application-1-qui-loggue.sh >> $NOMFICHIERLOG
 
-# Et là, on SAIT , que l'ensemble a été provisionné correctement)
-# echo " +++provision+ app + elk +  Votre serveur Gogs est disponible à l'URI:" >> $NOMFICHIERLOG
-# echo " +++provision+ app + elk +  http://$ADRESSE_IP_HOTE_DOCKER_ELK:$NO_PORT_SRV_GOGS/]" >> $NOMFICHIERLOG
-# clear
+
