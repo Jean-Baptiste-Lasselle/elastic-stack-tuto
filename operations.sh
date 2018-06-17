@@ -8,13 +8,13 @@
 #########################################							ENV								##########################################
 ##############################################################################################################################################
 # --------------------------------------------------------------------------------------------------------------------------------------------
-export MAISON_OPERATIONS
-# MAISON_OPERATIONS=$(pwd)/provision-apps-plus-elk.io
-MAISON_OPERATIONS=`pwd`
+export MAISON_MERE_OPERATIONS
+# MAISON_MERE_OPERATIONS=$(pwd)/provision-apps-plus-elk.io
+MAISON_MERE_OPERATIONS=`pwd`
 
 # -
 export NOMFICHIERLOG
-NOMFICHIERLOG="$(pwd)/provision-tuto-elk-filebeats.log"
+NOMFICHIERLOG="$MAISON_MERE_OPERATIONS/provision-tuto-elk-filebeats.log"
 
 
 
@@ -122,9 +122,9 @@ checkHealth () {
 # --------------------------------------------------------------------------------------------------------------------------------------------
 
 
-# rm  -rf $MAISON_OPERATIONS
-# mkdir -p $MAISON_OPERATIONS
-# cd $MAISON_OPERATIONS
+# rm  -rf $MAISON_MERE_OPERATIONS
+# mkdir -p $MAISON_MERE_OPERATIONS
+# cd $MAISON_MERE_OPERATIONS
 rm -f $NOMFICHIERLOG
 touch $NOMFICHIERLOG
 
@@ -180,7 +180,7 @@ cd $DOCKHOST_PROVISONING_HOME
 git clone "$URI_REPO_RECETTE_PROV_DOCKHOST" .
 sudo chmod +x operations.sh
 ./operations.sh
-cd $MAISON_OPERATIONS
+cd $MAISON_MERE_OPERATIONS
 
 
 # --------------------------------------------------------------------------------------------------------------------------------------------
@@ -201,7 +201,7 @@ cd $ELK_PROVISIONING_HOME
 git clone "$URI_REPO_RECETTE_PROV_ELK" . 
 sudo chmod +x ./operations.sh
 ./operations.sh
-cd $MAISON_OPERATIONS
+cd $MAISON_MERE_OPERATIONS
 
 
 
@@ -224,7 +224,7 @@ cd $PROVISIONING_HOME_CIBLE
 git clone "$URI_REPO_RECETTE_PROV_CIBLE_DEPLOIEMENT" . 
 sudo chmod +x ./operations.sh
 ./operations.sh
-cd $MAISON_OPERATIONS
+cd $MAISON_MERE_OPERATIONS
 
 
 echo "########### "
