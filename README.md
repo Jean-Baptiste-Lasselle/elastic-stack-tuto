@@ -292,7 +292,7 @@ L'utilisateur jibl peut utiliser les commandes suivantes sur pc-65 :
 
 
 
-* rappels docker volume, et bind/mount volumes: https://container42.com/2014/11/03/docker-indepth-volumes/
+* rappels docker volume, et bind/mount volumes: https://container42.com/2014/11/03/docker-indepth-volumes/, et https://docs.docker.com/storage/bind-mounts/#use-a-read-only-bind-mount 
 * élémentaire: https://elk-docker.readthedocs.io
 * Pour aller plus loin, avec sécurisation Certificats SSL, et une configuration de filebeats sécurisée SSL aussi. https://www.digitalocean.com/community/tutorials/how-to-install-elasticsearch-logstash-and-kibana-elk-stack-on-ubuntu-14-04
 <!-- * REALEASE 0.0.2 : https://www.elastic.co/guide/en/beats/filebeat/current/filebeat-getting-started.html  +   https://www.elastic.co/downloads/beats/filebeat -->
