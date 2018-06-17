@@ -290,10 +290,13 @@ L'utilisateur jibl peut utiliser les commandes suivantes sur pc-65 :
 
 # Sources d'information diverses
 
-
-
-* rappels docker volume, et bind/mount volumes: https://container42.com/2014/11/03/docker-indepth-volumes/, et https://docs.docker.com/storage/bind-mounts/#use-a-read-only-bind-mount 
-* élémentaire: https://elk-docker.readthedocs.io
-* Pour aller plus loin, avec sécurisation Certificats SSL, et une configuration de filebeats sécurisée SSL aussi. https://www.digitalocean.com/community/tutorials/how-to-install-elasticsearch-logstash-and-kibana-elk-stack-on-ubuntu-14-04
+* Rappels docker volume, et bind/mount volumes: https://container42.com/2014/11/03/docker-indepth-volumes/, et https://docs.docker.com/storage/bind-mounts/#use-a-read-only-bind-mount 
+* Elémentaire: https://elk-docker.readthedocs.io
+* Pour aller plus loin, avec sécurisation Certificats SSL, et une configuration de filebeats sécurisée SSL aussi:
+    https://www.digitalocean.com/community/tutorials/how-to-install-elasticsearch-logstash-and-kibana-elk-stack-on-ubuntu-14-04
+	
+```
+Now that your syslogs are centralized via Elasticsearch and Logstash, and you are able to visualize them with Kibana, you should be off to a good start with centralizing all of your important logs
+```
 <!-- * REALEASE 0.0.2 : https://www.elastic.co/guide/en/beats/filebeat/current/filebeat-getting-started.html  +   https://www.elastic.co/downloads/beats/filebeat -->
 <!-- * REALEASE 0.0.3 : http://blog.dbsqware.com/elasticstack-principe-installation-et-premiers-pas/ -->
