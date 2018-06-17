@@ -10,7 +10,7 @@
 # --------------------------------------------------------------------------------------------------------------------------------------------
 export MAISON_OPERATIONS
 # MAISON_OPERATIONS=$(pwd)/provision-apps-plus-elk.io
-MAISON_OPERATIONS=$(pwd)
+MAISON_OPERATIONS=`pwd`
 
 # -
 export NOMFICHIERLOG
@@ -206,7 +206,7 @@ cd $MAISON_OPERATIONS
 
 
 # --------------------------------------------------------------------------------------------------------------------------------------------
-# 			PROVISION ELK
+# 			PROVISION CIBLE DEPLOIEMENT APPLICATIONS SURPERVISEE PAR ELK
 # --------------------------------------------------------------------------------------------------------------------------------------------
 
 # ---------------------------------------
@@ -217,7 +217,7 @@ cd $MAISON_OPERATIONS
 #      https://github.com/Jean-Baptiste-Lasselle/provision-cible-deploiement-dockhost-tomcat-mariadb
 export URI_REPO_RECETTE_PROV_CIBLE_DEPLOIEMENT=https://github.com/Jean-Baptiste-Lasselle/provision-cible-deploiement-dockhost-tomcat-mariadb
 export PROVISIONING_HOME_CIBLE
-PROVISIONING_HOME_CIBLE=$(pwd)/provision-elk-sur-dockhost
+PROVISIONING_HOME_CIBLE=$(pwd)/provision-cible-deploiement-apps-qui-emettent-logs
 rm -rf $PROVISIONING_HOME_CIBLE
 mkdir -p $PROVISIONING_HOME_CIBLE
 cd $PROVISIONING_HOME_CIBLE
