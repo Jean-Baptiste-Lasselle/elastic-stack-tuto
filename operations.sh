@@ -26,8 +26,7 @@ NOMFICHIERLOG="$(pwd)/provision-tuto-elk-filebeats.log"
 # ADRESSE_IP_HOTE_DOCKER_ELK_PAR_DEFAUT=0.0.0.0
 
 export NOM_CONTENEUR_ELK1=conteneur-elk-jibl
-# la "latest" d'Elastic Stack
-export NOM_IMAGE_ELK1=sebp/elk
+
 # export ADRESSE_IP_HOTE_DOCKER_ELK_PAR_DEFAUT
 # ADRESSE_IP_HOTE_DOCKER_ELK_PAR_DEFAUT=0.0.0.0
 
