@@ -21,9 +21,6 @@ NOMFICHIERLOG="$(pwd)/provision-tuto-elk-filebeats.log"
 ######### -# -# -# -# -# -# -# -# -# -# -# -# -# -# -# -# -# -# -# -# -# -# -# -# -# -# -# -# -# -# -
 ######### -# -# -# -# -# -# -# -# -# -# -# -# -# -# -# -# -# -# -# -# -# -# -# -# -# -# -# -# -# -# -
 # -
-# export ADRESSE_IP_HOTE_DOCKER_ELK
-# export ADRESSE_IP_HOTE_DOCKER_ELK_PAR_DEFAUT
-# ADRESSE_IP_HOTE_DOCKER_ELK_PAR_DEFAUT=0.0.0.0
 
 export NOM_CONTENEUR_ELK1=conteneur-elk-jibl
 
@@ -38,27 +35,6 @@ export NOM_CONTENEUR_ELK1=conteneur-elk-jibl
 ##############################################################################################################################################
 #########################################							FONCTIONS						##########################################
 ##############################################################################################################################################
-
-
-
-# --------------------------------------------------------------------------------------------------------------------------------------------
-# Cette fonction permet de demander interactivement à l'utilisateur du
-# script, quelle est l'adresse IP, dans l'hôte Docker, que l'instance ....
-demander_addrIP_PourJeNeSaisQuelleRaison () {
-
-	echo "Quelle questio?"
-	echo "Cette adresse est à  choisir parmi:"
-	echo " "
-	ip addr|grep "inet"|grep -v "inet6"|grep "enp\|wlan"
-	echo " "
-	read ADRESSE_IP_CHOISIE
-	if [ "x$ADRESSE_IP_CHOISIE" = "x" ]; then
-       ADRESSE_IP_HOTE_DOCKER_ELK=ADRESSE_IP_HOTE_DOCKER_ELK_PAR_DEFAUT
-	else
-	ADRESSE_IP_HOTE_DOCKER_ELK=$ADRESSE_IP_CHOISIE
-	fi
-	echo " Binding Adresse IP choisit pour le serveur Gogs: $ADRESSE_IP_HOTE_DOCKER_ELK";
-}
 
 
 # --------------------------------------------------------------------------------------------------------------------------------------------
@@ -113,36 +89,7 @@ synchroniserSurServeurNTP () {
 
 }
 
-# --------------------------------------------------------------------------------------------------------------------------------------------
-# Cette fonction permet d'appliquer les configurations du système d'exploitation pré-requises par ELK.
-ajusterLeSystemSpecialementPourELK () {
 
-# [prérequis 1] "limit on mmap counts equal to 262,144 or more"
-# cf. [https://www.elastic.co/guide/en/elasticsearch/reference/5.0/vm-max-map-count.html#vm-max-map-count]
-
-VALEUR_MAX_MAP_COUNT_AVANT=$(sysctl vm.max_map_count)
-echo "Avant l'ajustement du système pour l'installation d'ELK: [$VALEUR_MAX_MAP_COUNT_AVANT]" >> $NOMFICHIERLOG
-sudo sysctl -w vm.max_map_count=262144 >> $NOMFICHIERLOG
-VALEUR_MAX_MAP_COUNT_APRES=$(sysctl vm.max_map_count)
-echo "Après l'ajustement du système pour l'installation d'ELK: [$VALEUR_MAX_MAP_COUNT_APRES]" >> $NOMFICHIERLOG
-
-# [prérequis 2] "le port IP 5044 doit être ouvert pour l'hôte réseau exécutant le processus Filebeat (permettant de traiter les logs applicatifs avec Elastic Stack)"
-# cf. https://elk-docker.readthedocs.io/#usage
-# 
-
-# [prérequis 3] "le port IP 5601 doit être ouvert pour l'hôte réseau exécutant le processus Kibana Web Interface "
-# cf. https://elk-docker.readthedocs.io/#usage
-# 
-
-# [prérequis 4] "le port IP 9200 doit être ouvert pour l'hôte réseau exécutant le processus du moteur Elastic Serach, pour sa \"JSON interface\" (API REST)"
-# cf. https://elk-docker.readthedocs.io/#usage
-# 
-
-# [prérequis 4] "le port IP 9300 doit être ouvert pour l'hôte réseau exécutant le processus du moteur Elastic Serach, pour sa \"Transport interface\"  "
-# cf. https://elk-docker.readthedocs.io/#usage
-# 
-
-}
 
 
 # --------------------------------------------------------------------------------------------------------------------------------------------
@@ -196,15 +143,11 @@ echo "##########################################################"
 echo "##########################################################"
 echo " "
 
-# demander_addrIP_PourJeNeSaisQuelleRaison
-
-
 
 echo " " >> $NOMFICHIERLOG
 echo "##########################################################" >> $NOMFICHIERLOG
 echo "##########################################################" >> $NOMFICHIERLOG
 echo "# Setup Tutoriel ELK en cours..." >> $NOMFICHIERLOG
-echo " 		[ADRESSE_IP_HOTE_DOCKER_ELK=$ADRESSE_IP_HOTE_DOCKER_ELK]" >> $NOMFICHIERLOG
 echo "##########################################################" >> $NOMFICHIERLOG
 echo " " >> $NOMFICHIERLOG
 clear
@@ -262,14 +205,6 @@ cd $MAISON_OPERATIONS
 
 
 
-
-echo "########### "
-echo "########### "
-echo "########### Tutoriel ELK prêt à l'emploi! "
-echo "########### "
-
-
-
 # --------------------------------------------------------------------------------------------------------------------------------------------
 # 			PROVISION ELK
 # --------------------------------------------------------------------------------------------------------------------------------------------
@@ -292,6 +227,18 @@ sudo chmod +x ./operations.sh
 cd $MAISON_OPERATIONS
 
 
+echo "########### "
+echo "########### "
+echo "########### Tutoriel ELK prêt à l'emploi! "
+echo "########### "
+
+echo " " >> $NOMFICHIERLOG
+echo "##########################################################" >> $NOMFICHIERLOG
+echo "##########################################################" >> $NOMFICHIERLOG
+echo "# Tutoriel ELK prêt à l'emploi!." >> $NOMFICHIERLOG
+echo "##########################################################" >> $NOMFICHIERLOG
+echo " " >> $NOMFICHIERLOG
+clear
 ###  Mais bon, pour moi, le cycle de création d'applications et déploiements, commence ici avec le FULLSTACK-MAVEN-PLUGIN
 
 
