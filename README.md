@@ -295,7 +295,7 @@ L'utilisateur jibl peut utiliser les commandes suivantes sur pc-65 :
 * Pour aller plus loin, avec une configuration de filebeats sécurisée Certificats SSL, et des groks filters pour le logstash 
     https://www.digitalocean.com/community/tutorials/how-to-install-elasticsearch-logstash-and-kibana-elk-stack-on-ubuntu-14-04
 	le tout réalise des log systèmes, là où je pourrais faire en plsu des logs applicatifs / métiers avec le opentracing.io
-	
+	les groks filters logstash, les filebeats et leur configuration, les configurations d'index Elastic Search, et les configurations de dashboards Kibana.
 ```
 Now that your syslogs are centralized via Elasticsearch and Logstash, and you are able to visualize them with Kibana, you should be off to a good start with centralizing all of your important logs
 ```
