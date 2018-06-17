@@ -2,9 +2,9 @@
 
 Chaque release de ce repository correspondra à un scénario.
 
-* REALEASE 0.0.1 : cf. [Scenario 2](#Scenario2)
-<!-- * REALEASE 0.0.2 : cf. [Scenario 3](#Scenario3) -->
-<!-- * REALEASE 0.0.3 : cf. [Scenario 4](#Scenario4) -->
+* REALEASE 0.0.1 : cf. [Scenario 2](https://github.com/Jean-Baptiste-Lasselle/elastic-stack-tuto#scenario-2)
+<!-- * REALEASE 0.0.2 : cf. [Scenario 3](https://github.com/Jean-Baptiste-Lasselle/elastic-stack-tuto#scenario-3) -->
+<!-- * REALEASE 0.0.3 : cf. [Scenario 4](https://github.com/Jean-Baptiste-Lasselle/elastic-stack-tuto#scenario-4) -->
 
 # Scenarii
 
